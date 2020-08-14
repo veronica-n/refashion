@@ -1,0 +1,12 @@
+{
+  "name": "refashion",
+  "displayName": "refashion",
+  "expo": {
+    "name": "refashion",
+    "slug": "refashion",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
