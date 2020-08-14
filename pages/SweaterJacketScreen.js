@@ -6,12 +6,12 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-function ExploreScreen() {
+function SweaterJacketScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F0EFEB' }}>
-      <Text>Explore!</Text>
+      <Text>Sweaters & Jackets!</Text>
     </View>
   );
 }
 
-export default ExploreScreen;
+export default SweaterJacketScreen;
