@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Alert } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,27 +11,6 @@ function ClosetScreen({navigation}) {
   const { logout } = useContext(AuthContext);
   var usr = firebase.auth().currentUser;
   console.log(usr.uid);
-
-  async function addNewItem() {
-    try {
-      await firestore()
-        .collection('users')
-        .doc(usr.uid)
-        .collection('closet')
-        .add({
-          category: "",
-          title: "",
-          brand: ""
-        })
-        .then(() => {
-          console.log('Added entry!');
-          navigation.navigate('Item');
-        });
-    } catch (e) {
-      Alert.alert("Add Unsuccessful");
-      console.log(e);
-    }
-  }
 
   return (
     <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#F0EFEB' }}>
@@ -68,7 +48,7 @@ function ClosetScreen({navigation}) {
           <Text style={{fontFamily: 'Roboto-Light', color: '#FFF', fontSize: 24, textAlignVertical: 'center', textAlign: 'center', marginTop: -80}}>
             accesories</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => addNewItem()} style={styles.button}>
+      <TouchableOpacity onPress={() => navigation.navigate('AddItem')} style={styles.button}>
           <Text style={{fontFamily: 'Roboto-Light', color: '#FFF', fontSize: 70, paddingTop: 30, textAlign: 'center', marginTop: -30}}>
             +</Text>
       </TouchableOpacity>

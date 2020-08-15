@@ -1,4 +1,5 @@
 import React from 'react';
+import ExploreStack from './ExploreStack.js';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -20,7 +21,7 @@ function MainStack() {
          inactiveColor = "#fff"
          barStyle={{ backgroundColor: '#B7B7A4', height: 77, paddingTop: 10}}
          >
-       <Tab.Screen name='Explore' component={ExploreScreen}
+       <Tab.Screen name='Explore' component={ExploreStack}
                    options = {{
                      tabBarLabel: <Text style={{ fontSize: 15}}> Explore </Text>,
                      tabBarIcon: ({ color }) => (

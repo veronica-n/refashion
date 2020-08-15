@@ -10,7 +10,7 @@ import SkirtDressScreen from '../pages/SkirtDressScreen.js'
 import SweaterJacketScreen from '../pages/SweaterJacketScreen.js'
 import AccessoriesScreen from '../pages/AccessoriesScreen.js';
 import LoginScreen from '../pages/LoginScreen.js';
-import ItemScreen from '../pages/ItemScreen.js';
+import AddItemScreen from '../pages/AddItemScreen.js';
 
 //Navigating the closet
 
@@ -28,7 +28,7 @@ function ClosetStack () {
             <Stack.Screen name='SkirtsDresses' component={SkirtDressScreen}/>
             <Stack.Screen name='SweatersJackets' component={SweaterJacketScreen}/>
             <Stack.Screen name='Accessories' component={AccessoriesScreen}/>
-            <Stack.Screen name='Item' component={ItemScreen} />
+            <Stack.Screen name='AddItem' component={AddItemScreen} />
         </Stack.Navigator>
     );
 }

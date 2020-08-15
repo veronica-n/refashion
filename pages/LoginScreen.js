@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -21,18 +22,19 @@ function LoginScreen({ navigation }) {
         sign in</Text>
 
         <TextInput
-          placeholder = "email"
-          style= {styles.input}
-          autoCapitalize='none'
-          autoCorrect={false}
-          onChangeText = {onChangeEmail}
-        />
+            placeholder = "email"
+            style= {styles.input}
+            autoCapitalize='none'
+            autoCorrect={false}
+            onChangeText = {onChangeEmail}
+          />
 
         <TextInput
           placeholder = "password"
           style= {styles.input}
           secureTextEntry={true}
           autoCapitalize='none'
+          autoCorrect={false}
           onChangeText = {onChangePassword}
         />
 
