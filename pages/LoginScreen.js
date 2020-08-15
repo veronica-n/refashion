@@ -1,12 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { AuthContext } from '../navigation/AuthProvider';
 
 
-function LoginScreen() {
+function LoginScreen({ navigation }) {
+  const [email, setEmail] = useState('');
+  const onChangeEmail = (textValue) => setEmail(textValue);
+  const [password, setPassword] = useState('');
+  const onChangePassword = (textValue) => setPassword(textValue);
+  const { register, login } = useContext(AuthContext);
+
   return (
     <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#F0EFEB' }}>
        <Text style={{ fontFamily: 'Roboto', letterSpacing: 7, fontSize: 50, fontWeight: 'bold', paddingTop: 51, color: '#4E4E42'}}>
@@ -15,25 +19,29 @@ function LoginScreen() {
         building your sustainble closet.</Text>
         <Text style={{ fontFamily: 'Roboto-Light', letterSpacing: 4, fontSize: 30, paddingTop: 90, color: '#000'}}>
         sign in</Text>
-        
+
         <TextInput
+          placeholder = "email"
           style= {styles.input}
-          placeholder = 'email'
-          //onChangeText =  
-         ></TextInput>
-        
+          autoCapitalize='none'
+          autoCorrect={false}
+          onChangeText = {onChangeEmail}
+        />
+
         <TextInput
+          placeholder = "password"
           style= {styles.input}
-          placeholder = 'password'
-          //onChangeText =  
-         ></TextInput>
+          secureTextEntry={true}
+          autoCapitalize='none'
+          onChangeText = {onChangePassword}
+        />
 
         <View style={styles.buttonRow} >
-        <TouchableOpacity onPress={() => navigation.navigate('Shirts')} style={styles.button}>
+        <TouchableOpacity onPress={() => register(email, password)} style={styles.button}>
             <Text style={{fontFamily: 'Roboto-Light', color: '#000', fontSize: 18, textAlignVertical: 'center'}}>
                 Create user</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Bottoms')} style={styles.button}>
+        <TouchableOpacity onPress={() => login(email, password)} style={styles.button}>
             <Text style={{fontFamily: 'Roboto-Light', color: '#000', fontSize: 18, textAlignVertical: 'center'}}>
                 Log in   </Text>
             <AntDesign name="arrowright" color='black' size={26} />
@@ -46,33 +54,30 @@ function LoginScreen() {
 
 const styles = StyleSheet.create({
     input: {
+        width: 315,
+        height: 50,
         backgroundColor: '#CDCDC6',
         borderRadius: 10,
-        borderWidth: 10,
-        borderColor: '#CDCDC6',
-        width: 315,
-        height: 35,
         padding: 15,
-        marginTop:25,
-        fontFamily: 'Roboto',
+        marginTop: 25,
         fontSize: 18,
-        letterSpacing: 4,
+        letterSpacing: 2,
+        fontFamily: 'Roboto'
     },
     buttonRow: {
         flex: 1,
         flexDirection: 'row',
     },
-    button: { 
+    button: {
         flexDirection: 'row',
         margin: 30,
         height: 35,
         width: 126,
         borderRadius: 15,
-        padding:10,
         backgroundColor: '#CDCDC6',
         alignItems: 'center',
         justifyContent:'center'
-      } 
+      }
 });
 
 export default LoginScreen;

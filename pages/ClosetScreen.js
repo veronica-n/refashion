@@ -1,13 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Alert } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AuthContext } from '../navigation/AuthProvider';
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 function ClosetScreen({navigation}) {
+  const { logout } = useContext(AuthContext);
+  var usr = firebase.auth().currentUser;
+  console.log(usr.uid);
+
+  async function addNewItem() {
+    try {
+      await firestore()
+        .collection('users')
+        .doc(usr.uid)
+        .collection('closet')
+        .add({
+          category: "",
+          title: "",
+          brand: ""
+        })
+        .then(() => {
+          console.log('Added entry!');
+          navigation.navigate('Item');
+        });
+    } catch (e) {
+      Alert.alert("Add Unsuccessful");
+      console.log(e);
+    }
+  }
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#F0EFEB' }}> 
+    <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#F0EFEB' }}>
       <Text style={{ fontFamily: 'Roboto', letterSpacing: 7, fontSize: 50, fontWeight: 'bold', paddingTop: 51, color: '#4E4E42'}}>
         closet</Text >
     <View style={styles.buttonRow} >
@@ -35,21 +61,25 @@ function ClosetScreen({navigation}) {
             sweaters    &       jackets</Text>
       </TouchableOpacity>
     </View>
-    
+
     <View style={styles.buttonRow} >
-      <TouchableOpacity onPress={() => navigation.navigate('Accessories')} style={styles.longbutton}>
-          <Image source = {require('../images/acessories.png')} style={{marginTop: -10 }} ></Image>
-          <Text style={{fontFamily: 'Roboto-Light', color: '#FFF', fontSize: 24, paddingTop: 30, textAlign: 'center', marginTop: -110}}>
+      <TouchableOpacity onPress={() => navigation.navigate('Accessories')} style={styles.button}>
+          <Image source = {require('../images/acessories.png')} style={{marginTop: -40}}></Image>
+          <Text style={{fontFamily: 'Roboto-Light', color: '#FFF', fontSize: 24, textAlignVertical: 'center', textAlign: 'center', marginTop: -80}}>
             accesories</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => addNewItem()} style={styles.button}>
+          <Text style={{fontFamily: 'Roboto-Light', color: '#FFF', fontSize: 70, paddingTop: 30, textAlign: 'center', marginTop: -30}}>
+            +</Text>
       </TouchableOpacity>
     </View>
 
     <View style={styles.buttonRow} >
-      <TouchableOpacity onPress={() => navigation.navigate('Logout')} style={styles.logout}>
+      <TouchableOpacity style={styles.logout} onPress={() => logout()}>
           <Text style={{fontFamily: 'Roboto-Light', color: '#000', fontSize: 24, paddingTop: 12, textAlign: 'center'}}>
             LOGOUT</Text>
       </TouchableOpacity>
-    </View> 
+    </View>
     </View>
   );
 }
@@ -59,7 +89,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-  button: { 
+  button: {
     margin: 30,
     height: 100,
     width: 126,
