@@ -28,13 +28,13 @@ function EditItemScreen({ navigation, route }) {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
-        { text: "OK", onPress: () => {
+        { text: "OK", onPress: async () => {
           try {
-            firestore()
+            await firestore()
               .collection('users')
               .doc(usr.uid)
               .collection('closet')
-              .onSnapshot(querySnapshot => {
+              /*.onSnapshot(querySnapshot => {
                 if (querySnapshot.exists)
                   console.log("query snapshot exists");
                 querySnapshot.forEach(documentSnapshot => {
@@ -44,15 +44,10 @@ function EditItemScreen({ navigation, route }) {
                       console.log(documentSnapshot.documentID);
                     }
                 });
-              })
-              .then(
-                firestore()
-                .collection('users')
-                .doc(usr.uid)
-                .collection('closet')
-                .doc(deleteItem)
+              })*/
+                .doc(item.id)
                 .delete()
-              ).then(() => {
+              .then(() => {
                 console.log("Deleted!");
                 navigation.goBack();
               });

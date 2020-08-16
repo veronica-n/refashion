@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View, Dimensions, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, FlatList, Image, TouchableOpacity } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import firebase from '@react-native-firebase/app';
@@ -11,7 +11,7 @@ const window = Dimensions.get("window");
 const height = window.height;
 const width = window.width;
 
-function SkirtDressScreen() {
+function SkirtDressScreen({ navigation }) {
   var usr = firebase.auth().currentUser;
   const [skirtDress, setSkirtDress] = useState([]);
   let brandMap = new Map([
@@ -69,9 +69,10 @@ function SkirtDressScreen() {
         keyExtractor={(item) => item.title }
         renderItem={({ item }) => (
           <View >
-            <View style={styles.shirtItem}>
-              <Image source = {require('../images/Skirts.png')}/>
-            </View>
+            <TouchableOpacity style={styles.shirtItem}
+                              onPress={() => navigation.navigate('EditItem', {item: item, score: brandMap.get(item.brand)})}>
+              <Image source = {require('../images/Skirts.png')}></Image>
+            </ TouchableOpacity>
             <View style={{flexDirection:'row'}}>
               <View style={styles.label}>
                 <Text style={{fontFamily: 'Roboto-Light', color: '#fff'}}>{item.brand}</Text>

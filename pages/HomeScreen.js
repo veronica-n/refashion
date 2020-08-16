@@ -27,6 +27,7 @@ function HomeScreen() {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#F0EFEB'}}>
+      <View style={{height: 40}} />
       <Text style={{ fontFamily: 'Roboto', letterSpacing: 7, fontSize: 50, fontWeight: 'bold', paddingTop: 51, color: '#4E4E42'}}>
         re fashion</Text>
       <View style ={{marginTop: 100}}>

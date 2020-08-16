@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View, Dimensions, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, FlatList, Image, TouchableOpacity } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import firebase from '@react-native-firebase/app';
@@ -11,7 +11,7 @@ const window = Dimensions.get("window");
 const height = window.height;
 const width = window.width;
 
-function SweaterJacketScreen() {
+function SweaterJacketScreen({ navigation }) {
   var usr = firebase.auth().currentUser;
   const [sJacket, setSJacket] = useState([]);
   let brandMap = new Map([
@@ -69,9 +69,10 @@ function SweaterJacketScreen() {
         keyExtractor={(item) => item.title }
         renderItem={({ item }) => (
           <View >
-            <View style={styles.shirtItem}>
+            <TouchableOpacity style={styles.shirtItem}
+                              onPress={() => navigation.navigate('EditItem', {item: item, score: brandMap.get(item.brand)})}>
               <Image source = {require('../images/Sweater.png')} />
-            </View>
+            </TouchableOpacity>
             <View style={{flexDirection:'row'}}>
               <View style={styles.label}>
                 <Text style={{fontFamily: 'Roboto-Light', color: '#fff'}}>{item.brand}</Text>

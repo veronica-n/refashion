@@ -54,7 +54,15 @@ function AddItemScreen({ navigation }) {
     );
   }
 
+  function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
   async function addNewItem() {
+    const itemID = uuidv4();
     if (title == "")
       Alert.alert("Please add a title to your item");
     else if (category == "")
@@ -65,10 +73,12 @@ function AddItemScreen({ navigation }) {
           .collection('users')
           .doc(usr.uid)
           .collection('closet')
-          .add({
+          .doc(itemID)
+          .set({
             category: category,
             title: title,
-            brand: brand
+            brand: brand,
+            id: itemID
           })
           .then(async () => {
             const db_brand = await firestore().collection('brands').doc(brand).get();

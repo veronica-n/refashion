@@ -33,6 +33,7 @@ function BuyScreen({navigation}) {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#F0EFEB'}}>
+        <View style={{height: 20}} />
         <Image source = {require('../images/logo.png')} style={{width: 50, height: 50, marginLeft: 350, marginTop: 10}}></Image>
 
         <Text style={{ fontFamily: 'Roboto', textAlign: 'center', letterSpacing: 7, fontSize: 50, fontWeight: 'bold', marginTop: -10, color: '#4E4E42'}}>
