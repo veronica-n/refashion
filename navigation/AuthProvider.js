@@ -38,7 +38,8 @@ export const AuthProvider = ({ children }) => {
                 email,
                 user_id,
                 num: 0,
-                den: 0
+                den: 0,
+                score: 100
               });
             });
             /*.then((user) => {

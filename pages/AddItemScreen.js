@@ -36,9 +36,9 @@ function AddItemScreen({ navigation }) {
         brands.filter(item => item.name != "Second Hand");
         brands.filter(item => item.name != "Thrift Store");
         brands.unshift({environment: 9, fash_trans: 0, grade: "A+",
-                          human: 5, name: "Thrift Store", score: 15, trans_point: 1},
+                          human: 5, name: "Thrift Store", score: 15, trans_point: 8},
                         {environment: 10, fash_trans: 0, grade: "A+",
-                          human: 5, name: "Second Hand", score: 16, trans_point: 1})
+                          human: 5, name: "Second Hand", score: 16, trans_point: 8});
         setBrands(brands);
       });
 
@@ -76,14 +76,23 @@ function AddItemScreen({ navigation }) {
             const user = await firestore().collection('users').doc(usr.uid).get();
             console.log(user);
             console.log(user.data());
-            var newScore = db_brand.data().score + db_brand.data().trans_point + user.data().num;
-            var newDen = user.data().num + 24;
+            if (brand == "Second Hand")
+              var newNum = +24 + +user.data().num;
+            else if (brand == "Thrift Store")
+              var newNum = +23 + +user.data().num;
+            else
+              var newNum = +db_brand.data().score + +db_brand.data().trans_point + +user.data().num;
+            var newDen = +24 + +user.data().den;
+            var newScore = +(+newNum / +newDen) * +100;
+            console.log(newNum);
+            console.log(newDen);
             await firestore()
               .collection('users')
               .doc(usr.uid)
               .update({
-              num: newScore,
-              den: newDen
+              num: +newNum,
+              den: +newDen,
+              score: +newScore
             })
           })
           .then(() => {
