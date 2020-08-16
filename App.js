@@ -14,6 +14,8 @@ import ClosetStack from './navigation/ClosetStack.js';
 
 const Tab = createMaterialBottomTabNavigator();
 
+//console.disableYellowBow = true;
+
 export default function App() {
   return (
     /*<NavigationContainer>

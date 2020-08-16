@@ -17,14 +17,12 @@ function HomeScreen() {
       .collection('users')
       .doc(usr.uid)
       .onSnapshot(documentSnapshot => {
-        if (documentSnapshot.exists) {
           const score = [];
           score.push(Math.trunc(documentSnapshot.data().score));
           getUserScore(score);
           console.log('User data: ', documentSnapshot.data());
-        }
       });
-    return () => subscriber;
+    return () => subscriber();
   }, []);
 
   return (

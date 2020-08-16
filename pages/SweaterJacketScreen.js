@@ -17,20 +17,20 @@ function SweaterJacketScreen() {
   let brandMap = new Map([
         ['Second Hand', '   A+'],
         ['Thrift Store', '      A+'],
-        ['Boyish', 'A+'],
+        ['Boyish', '            A+'],
         ['Girlfriend Collective', 'A+'],
-        ['Reformation', '  A'],
-        ['H&M', 'A-'],
-        ['Uniqlo', 'B+'],
-        ['Nike', 'B+'],
-        ["Levi's", 'B+'],
-        ['Gap', '  B'],
-        ['TopShop', '  B'],
-        ['Zara', 'B-'],
-        ['Lululemon', 'B-'],
-        ['Walmart', 'B-'],
+        ['Reformation', '      A'],
+        ['H&M', '               A-'],
+        ['Uniqlo', '            B+'],
+        ['Nike', '               B+'],
+        ["Levi's", '              B+'],
+        ['Gap', '                 B'],
+        ['Topshop', '           B'],
+        ['Zara', '               B-'],
+        ['Lululemon', '        B-'],
+        ['Walmart', '          B-'],
         ['American Eagle', 'C+'],
-        ['Hollister', 'C+'],
+        ['Hollister', '          C+'],
         ['Urban Outfitters', 'C+'],
         ['Aritzia', '              C'],
         ['Forever 21', '         C'],
@@ -48,12 +48,9 @@ function SweaterJacketScreen() {
         const sJacket = [];
 
         querySnapshot.forEach(documentSnapshot => {
-          sJacket.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
-          });
+          if (documentSnapshot.data().category == "Sweaters & Jackets")
+            sJacket.push(documentSnapshot.data());
         });
-        sJacket.filter(item => item.category == "Sweaters & Jackets");
         setSJacket(sJacket);
       });
 

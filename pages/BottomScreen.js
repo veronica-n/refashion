@@ -17,20 +17,20 @@ function BottomScreen() {
   let brandMap = new Map([
         ['Second Hand', '   A+'],
         ['Thrift Store', '      A+'],
-        ['Boyish', 'A+'],
+        ['Boyish', '            A+'],
         ['Girlfriend Collective', 'A+'],
-        ['Reformation', '  A'],
-        ['H&M', 'A-'],
-        ['Uniqlo', 'B+'],
-        ['Nike', 'B+'],
-        ["Levi's", 'B+'],
-        ['Gap', '  B'],
-        ['TopShop', '  B'],
-        ['Zara', 'B-'],
-        ['Lululemon', 'B-'],
-        ['Walmart', 'B-'],
+        ['Reformation', '      A'],
+        ['H&M', '               A-'],
+        ['Uniqlo', '            B+'],
+        ['Nike', '               B+'],
+        ["Levi's", '              B+'],
+        ['Gap', '                 B'],
+        ['Topshop', '           B'],
+        ['Zara', '               B-'],
+        ['Lululemon', '        B-'],
+        ['Walmart', '          B-'],
         ['American Eagle', 'C+'],
-        ['Hollister', 'C+'],
+        ['Hollister', '         C+'],
         ['Urban Outfitters', 'C+'],
         ['Aritzia', '              C'],
         ['Forever 21', '         C'],
@@ -48,12 +48,10 @@ function BottomScreen() {
         const bottoms = [];
 
         querySnapshot.forEach(documentSnapshot => {
-          bottoms.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
-          });
+          if (documentSnapshot.data().category == "Bottoms")
+            bottoms.push(documentSnapshot.data());
         });
-        bottoms.filter(item => item.category == "Bottoms");
+        //bottoms.filter(item => item.category == "Bottoms");
         setBottoms(bottoms);
       });
 

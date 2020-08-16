@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useState, useContext } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AuthContext } from '../navigation/AuthProvider';
 
@@ -49,6 +49,8 @@ function LoginScreen({ navigation }) {
             <AntDesign name="arrowright" color='black' size={26} />
         </TouchableOpacity>
         </View>
+
+        <Image source = {require('../images/logo.png')} style={{width: 150, height: 150, marginTop: 10, marginBottom:50}}></Image>
 
     </View>
   );

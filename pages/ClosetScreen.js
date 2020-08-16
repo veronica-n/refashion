@@ -14,6 +14,7 @@ function ClosetScreen({navigation}) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#F0EFEB' }}>
+      <View style={{height: 30}} />
       <Text style={{ fontFamily: 'Roboto', letterSpacing: 7, fontSize: 50, fontWeight: 'bold', paddingTop: 51, color: '#4E4E42'}}>
         closet</Text >
     <View style={styles.buttonRow} >

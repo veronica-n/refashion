@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View, Dimensions, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, FlatList, Image, TouchableOpacity } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import firebase from '@react-native-firebase/app';
@@ -11,26 +11,26 @@ const window = Dimensions.get("window");
 const height = window.height;
 const width = window.width;
 
-function ShirtScreen() {
+function ShirtScreen({ navigation }) {
   var usr = firebase.auth().currentUser;
   const [shirts, setShirts] = useState([]);
   let brandMap = new Map([
         ['Second Hand', '   A+'],
         ['Thrift Store', '      A+'],
-        ['Boyish', 'A+'],
+        ['Boyish', '            A+'],
         ['Girlfriend Collective', 'A+'],
-        ['Reformation', '  A'],
-        ['H&M', 'A-'],
-        ['Uniqlo', 'B+'],
-        ['Nike', 'B+'],
-        ["Levi's", 'B+'],
-        ['Gap', '  B'],
-        ['TopShop', '  B'],
-        ['Zara', 'B-'],
-        ['Lululemon', 'B-'],
-        ['Walmart', 'B-'],
+        ['Reformation', '      A'],
+        ['H&M', '               A-'],
+        ['Uniqlo', '            B+'],
+        ['Nike', '               B+'],
+        ["Levi's", '              B+'],
+        ['Gap', '                 B'],
+        ['Topshop', '           B'],
+        ['Zara', '               B-'],
+        ['Lululemon', '        B-'],
+        ['Walmart', '          B-'],
         ['American Eagle', 'C+'],
-        ['Hollister', 'C+'],
+        ['Hollister', '          C+'],
         ['Urban Outfitters', 'C+'],
         ['Aritzia', '              C'],
         ['Forever 21', '         C'],
@@ -48,12 +48,9 @@ function ShirtScreen() {
         const shirts = [];
 
         querySnapshot.forEach(documentSnapshot => {
-          shirts.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
-          });
+          if (documentSnapshot.data().category == "Shirts")
+            shirts.push(documentSnapshot.data());
         });
-        shirts.filter(item => item.category == "Shirts");
         setShirts(shirts);
       });
 
@@ -68,13 +65,14 @@ function ShirtScreen() {
       <View style={{height: 10}}/>
       <FlatList
         data={shirts}
+        extraData={shirts}
         numColumns={2}
         keyExtractor={(item) => item.title }
         renderItem={({ item }) => (
           <View >
-            <View style={styles.shirtItem}>
+            <TouchableOpacity style={styles.shirtItem} onPress={() => navigation.navigate('EditItem', {item: item, score: brandMap.get(item.brand)})}>
               <Image source = {require('../images/Tshirt.png')} ></Image>
-            </View>
+            </TouchableOpacity>
             <View style={{flexDirection:'row'}}>
               <View style={styles.label}>
                 <Text style={{fontFamily: 'Roboto-Light', color: '#fff'}}>{item.brand}</Text>
